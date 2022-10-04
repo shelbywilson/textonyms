@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    letter-spacing: 0.07em;
 }
 html, body {
     margin: 0;
@@ -8,7 +9,7 @@ html, body {
 }
 main { 
     max-width: 375px; 
-    padding: 0 0.5rem;
+    padding: 0 1rem;
     margin: 0 auto; 
 } 
 section { 
@@ -17,7 +18,7 @@ section {
 section p {
     margin-left: calc(122px + 2rem);
     font-family: sans-serif;
-    letter-spacing: 0.07em;
+    font-size: 1rem;
 }
 header {
     display: flex;
