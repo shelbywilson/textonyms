@@ -18,6 +18,7 @@ A dictionary of digit combinations and their respective words. This includes com
 
 ```
 {
+  ...
   "2668378": [
       "convert",
       "contest"
@@ -35,6 +36,7 @@ A dictionary of digit combinations and their respective words. This includes com
   "37244464": [
       "dragging"
   ],
+  ...
 }
 ```
 
