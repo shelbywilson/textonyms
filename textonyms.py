@@ -35,24 +35,34 @@ def longest_synonyms(num2words):
     print('\n', 'longest synonyms', longest, len(longest), 'letters long maps to:', num2words[longest])
 
 def different_in_letters(num2words):
+    high_diff = {}
     gt_four_letters = []
     for i in num2words:
         if len(i) > 3 and len(num2words[i]) > 1:
             gt_four_letters.append(num2words[i])
 
-    # print(gt_four_letters)
-
-    for words in gt_four_letters:
-        for i_word in words:
-            for j_word in words:
+    for nums in gt_four_letters:
+        for i_word in nums:
+            for j_word in nums:
                 diff_letters = 0
                 index = 0
-                for char in j_word:
-                    if char != i_word[index]:
-                        diff_letters += 1
-                    index += 1
-                if diff_letters > 3:
-                    print(i_word, j_word, 'have a difference of', diff_letters)
+                if (i_word + '_' + j_word) not in high_diff and (j_word + '_' + i_word) not in high_diff:
+                    for char in j_word:
+                        if char != i_word[index]:
+                            diff_letters += 1
+                        index += 1
+                    if diff_letters > 3:
+                        high_diff[i_word + '_' + j_word] = diff_letters
+
+    high_diff_text = ''
+    for pair in sorted(high_diff.keys()):
+        high_diff_text += pair.replace('_', ',') + ' ' + str(high_diff[pair]) + '\n'
+
+    print('\n ~~~ write high_diff.txt')
+
+    w = open('./data/high_diff.txt', 'w')
+    w.write(high_diff_text)
+    w.close()
 
 def longest_combo(num2words):
     longest = ['1']
@@ -121,6 +131,7 @@ They require {3} digit combinations to represent them.
 {4} digit combinations represent Textonyms.\
 """.format(len(words) - reject, URL, URL2, len(num2words), morethan1word))
 
+    print('\n ~~~ write words.json')
     w = open('./data/words.json', 'w')
     json.dump(num2words, w, indent=4, ensure_ascii=False)
     w.close()
@@ -157,6 +168,7 @@ They require {3} digit combinations to represent them.
     # page_html += index_html
     # page_html += '</ul></main></body></head></html>'
 
+    print('\n ~~~ write index.html')
     w = open('./index.html', 'w')
     w.write(page_html)
     w.close()
