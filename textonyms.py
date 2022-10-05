@@ -6,6 +6,7 @@ import math
 CH2NUM = {ch: str(num) for num, chars in enumerate('abc def ghi jkl mno pqrs tuv wxyz'.split(), 2) for ch in chars}
 URL = 'https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-usa-no-swears.txt'
 URL2 = 'https://raw.githubusercontent.com/quinnj/Rosetta-Julia/master/unixdict.txt'
+BAD = 'https://raw.githubusercontent.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/master/en'
 
 def getwords(url):
  return urllib.request.urlopen(url).read().decode("utf-8").lower().split()
@@ -120,9 +121,10 @@ def get_graphic(combo, include_labels = False):
 
 if __name__ == '__main__':
     words = list(set(getwords(URL) + getwords(URL2) + ['goats']))
+    exclude = set(getwords(BAD))
     print("Read %i words from %r and %r" % (len(words), URL, URL2))
-    wordset = set(words)
-    num2words, reject = mapnum2words(words)
+    wordset = [a for a in set(words) if a not in exclude]
+    num2words, reject = mapnum2words(list(wordset))
     morethan1word = sum(1 for w in num2words if len(num2words[w]) > 1)
     maxwordpernum = max(len(values) for values in num2words.values())
     print("""
